@@ -8,7 +8,7 @@ int main()
 {
 	// Завдання 1
 
-	FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
+	/*FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
 	FILE* p_file_2 = fopen(R"(E:\text.txt)", "w");
 	char c;
 	int counter = 0;
@@ -34,6 +34,41 @@ int main()
 				fprintf(p_file_2, "%s\n", str_temp);
 			}
 			counter = 0;
+		}
+	} while (c != EOF);
+
+	fclose(p_file_1);
+	fclose(p_file_2);*/
+
+	// Завдання 2
+
+	FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
+	FILE* p_file_2 = fopen(R"(E:\text.txt)", "w");
+	char c;
+	int counter = 0;
+	char str_temp[50];
+
+	if (p_file_1 == nullptr)
+	{
+		return -1;
+	}
+
+	do
+	{
+		c = fgetc(p_file_1);
+		if (c == '\n')
+		{
+			str_temp[counter] = '\0';
+			for (int i = strlen(str_temp); i >= 0; i--)
+			{
+				fprintf(p_file_2, "%c", str_temp[i]);
+			}
+			fprintf(p_file_2, "\n");
+			counter = 0;
+		}
+		else
+		{
+			str_temp[counter++] = c;
 		}
 	} while (c != EOF);
 
