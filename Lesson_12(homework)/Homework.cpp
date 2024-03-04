@@ -42,7 +42,7 @@ int main()
 
 	// Завдання 2
 
-	FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
+	/*FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
 	FILE* p_file_2 = fopen(R"(E:\text.txt)", "w");
 	char c;
 	int counter = 0;
@@ -71,6 +71,59 @@ int main()
 			str_temp[counter++] = c;
 		}
 	} while (c != EOF);
+
+	fclose(p_file_1);
+	fclose(p_file_2);*/
+
+	// Завдання 3
+
+	FILE* p_file_1 = fopen(R"(F:\text.txt)", "r");
+	FILE* p_file_2 = fopen(R"(E:\text.txt)", "w");
+	char c;
+	int counter_1 = 0;
+	int counter_2 = 0;
+	int counter_3 = 0;
+	char str_temp[] = "------------";
+	char str_temp_1[50];
+
+	do
+	{
+		c = fgetc(p_file_1);
+		if (c == '\n')
+		{
+			str_temp_1[counter_1] = '\0';
+			for (int i = 0; i < strlen(str_temp_1); i++)
+			{
+				if (str_temp_1[i] == ' ')
+				{
+					counter_2++;
+					break;
+				}
+			}
+			if (counter_2 == 0)
+			{
+				counter_3++;
+				fprintf(p_file_2, "%s\n", str_temp_1);
+				fprintf(p_file_2, "%s\n", str_temp);
+			}
+			else
+			{
+				fprintf(p_file_2, "%s\n", str_temp_1);
+			}
+			counter_1 = 0;
+			counter_2 = 0;
+		}
+		else
+		{
+			str_temp_1[counter_1++] = c;
+		}
+
+	} while (c != EOF);
+
+	if (counter_3 == 0)
+	{
+		fprintf(p_file_2, "%s\n", str_temp);
+	}
 
 	fclose(p_file_1);
 	fclose(p_file_2);
